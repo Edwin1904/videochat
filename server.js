@@ -1,3 +1,4 @@
+// declaring modules 
 const express = require("express");
 const app = express();
 const server = require("http").Server(app);
@@ -16,6 +17,7 @@ const peerServer = ExpressPeerServer(server, {
 app.use("/peerjs", peerServer);
 app.use(express.static("public"));
 
+//routes
 app.get("/", (req, res) => {
   res.redirect(`/${uuidv4()}`);
 });
@@ -24,6 +26,7 @@ app.get("/:room", (req, res) => {
   res.render("room", { roomId: req.params.room });
 });
 
+// socket connection
 io.on("connection", (socket) => {
   socket.on("join-room", (roomId, userId, userName) => {
     socket.join(roomId);
